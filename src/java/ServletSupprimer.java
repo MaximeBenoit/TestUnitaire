@@ -5,18 +5,24 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import metier.Operateur;
+import physique.data.OperateurORMService;
+import physique.data.PhysiqueDataFactory;
 
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 /**
  *
  * @author Maxime
  */
-@WebServlet(name = "ServlerSupprimer", urlPatterns = {"/ServlerSupprimer"})
-public class ServlerSupprimer extends HttpServlet {
+@WebServlet(name = "ServletSupprimer", urlPatterns = {"/ServletSupprimer"})
+public class ServletSupprimer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -32,22 +38,31 @@ public class ServlerSupprimer extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        Operateur o = new Operateur();
+        Operateur Osuppr = new Operateur();
+        OperateurORMService operateur = PhysiqueDataFactory.getOperateurORMSrv();
+        String idOperateur = null;
+
+        idOperateur = request.getParameter("IdOperateurSupprimer");
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServlerSupprimer</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServlerSupprimer at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+            o = operateur.getById(Long.parseLong(idOperateur));
+            operateur.removeOperateur(o);
+        } catch (Exception ex) {
+            Logger.getLogger(ServletSupprimer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Osuppr = operateur.getById(Long.parseLong(idOperateur));
+        } catch (Exception ex) {
+            Logger.getLogger(ServletSupprimer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(Osuppr == null){
+        out.println("Operateur : "+idOperateur+ " supprimé");
+        }else{
+            out.println("Operateur non supprimé");
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP
      * <code>GET</code> method.

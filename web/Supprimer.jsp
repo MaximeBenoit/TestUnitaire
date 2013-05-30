@@ -9,10 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-   <form name="Consulter" action="ServletSupprimer" method="post">
-           
-                   <input type="text" name="IdRapport">
+        <title>Supprimer operateur</title>
+   <form name="Supprimer" action="ServletSupprimer" method="post">           
+                   <input type="text" name="IdOperateurSupprimer">
                    <input type="submit" name="Supprimer" value="Supprimer">
     </form>
 </html>

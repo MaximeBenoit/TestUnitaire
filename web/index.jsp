@@ -12,8 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <a href="Consulter.jsp">Consulter</a>
-         <a href="Supprimet.jsp">Supprimet</a>
+       
+        
+        <a href="Consulter.jsp">Consulter</a><br>
+         <a href="Supprimer.jsp">Supprimer</a>
     </body>
 </html>

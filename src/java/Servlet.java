@@ -37,24 +37,29 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-Montre m = null; 
-
-MontreORMService montre = PhysiqueDataFactory.getMontreORMSrv();
+        Montre m = new Montre();
+        MontreORMService montre = PhysiqueDataFactory.getMontreORMSrv();
+        String idRapport = null;
         try {
-            String idRapport = request.getParameter("IdRapport");
-            
-           
+            idRapport = request.getParameter("IdRapport");
             m = montre.getById(Long.parseLong(idRapport));
         } catch (Exception ex) {
             Logger.getLogger(Servlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         out.println("Fabricant : "+m.getFabricant()+"<br>");
-          out.println("Nom client : "+m.getProprietaire().getNom()+"<br>");
-           out.println("Prenom client : "+m.getProprietaire().getPrenom());
+        if (m == null) {
+            out.println("Erreur fichier null");
+        } else {
+            out.println("Fabricant : " + m.getFabricant() + "<br>");
+            out.println("Nom client : " + m.getProprietaire().getNom() + "<br>");
+            out.println("Prenom client : " + m.getProprietaire().getPrenom()+ "<br>");
+            out.println("ID client : " +m.getProprietaire().getId()+ "<br>");
+            out.println("ID montre : " +m.getId()+ "<br>");
+            out.println("ID rapport : " +m.getRapport().getId()+ "<br>");
+            out.println("Date de modification : " +m.getRapport().getDateUpdate()+ "<br>");
+            out.println("Defaut : " +m.getRapport().getDefaut()+ "<br>");
+        }
     }
-       
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
